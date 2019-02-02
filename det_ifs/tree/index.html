@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>IFS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;}
+        body {
+            background-color: #555;
+            user-select: none;
+            cursor: crosnshair;}
+        #canvas {
+            display: block;
+            margin: auto;
+            background-color: #fff;
+            transform: scaleY(-1);}
+        #controls-container {
+            cursor: default;
+            position: fixed;
+            z-index: 10;
+            margin: 4px;
+            background-color: #fffe;
+            border-radius: 10px 25px 10px 25px;
+            box-shadow: 2px 2px 4px #0008;
+            font-family: monospace;}
+        #controls-container h3 {
+            margin: 10px 10px 5px;
+        }
+        .hidden {
+            transform: translateX(calc(-100%))
+        }
+        .control {
+            display: flex;
+            align-items: center;
+            padding: 2px 10px;}
+        .control > * {padding: 2px 4px;}
+        #redraw-btn {
+            height: 30px;
+            background: rgb(40, 155, 175);
+            color: #fff;
+            border: 2px solid white;
+            cursor: pointer;
+            margin: 4px 10px 10px;
+            padding: 4px 12px;
+            border-radius: 100vw;
+            font-family: monospace;
+            font-size: 1.1em;
+            font-weight: bold;
+            box-shadow: 0 0 4px -1px #444;
+            transition: 0.1s ease-out}
+        #redraw-btn:hover {
+            border: 2px solid cyan;
+            filter: brightness(1.2)
+        }
+        #show-btn {
+            margin: 10px;
+            width: 30px;
+            height: 30px;
+            background-color: #444;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            right: 0;
+            cursor: pointer;
+        }
+        #show-btn:hover {background-color: #000;}
+        #show-btn::after, #show-btn::before {
+            content: '';
+            display: block;
+            position: absolute;
+            width: 10px;
+            height: 3px;
+            border-radius: 10px;
+            background-color: #fff;
+            left: 9px;
+        }
+        #show-btn::after {
+            top: 16px;
+            transform: rotate(45deg)
+        }
+        #show-btn::before {
+            top: 10px;
+            transform: rotate(-45deg)
+        }
+        .hidden #show-btn {
+            width: 50px;
+            height: 50px;
+            top: -10px;
+            right: -40px;
+            border: 10px solid #fff;
+            border-radius: 25px 0 0 25px / 25px 0 0 25px;
+            transform: scaleX(-1);
+        }
+    </style>
+</head>
+<body>
+    <div id="controls-container" class="hiddens">
+        <h3>OPTIONS</h3>
+        <!-- num iters -->
+        <div class="control">
+            <input type="range" id="numIters" name="numIters" min="5" max="8" value="7">
+            <label for="numIters">No. of Iterations</label><br>
+        </div>
+        <!-- anim speed -->
+        <div class="control">
+            <input type="range" id="numPoints" name="numPoints" min="1000" max="30000" step="1000" value="25000">
+            <label for="numPoints">No. of points drawn per frame</label><br>
+        </div>
+        <!-- foliage -->
+        <div class="control">
+            <input type="range" id="foliageDensity" name="foliageDensity" min="0" max="7" value="3">
+            <label for="foliageDensity">Foliage density (turn on color)</label><br>
+        </div>
+        <!-- colors -->
+        <div class="control">
+            <input type="checkbox" id="color" name="color" checked>
+            <label for="color">Turn on colors</label><br>
+        </div>
+        <!-- bg chkbox -->
+        <div class="control">
+            <input type="checkbox" id="bg" name="bg" checked>
+            <label for="bg">Turn on background</label><br>
+        </div>
+        <!-- refresh button -->
+        <button id="redraw-btn">Redraw</button>
+        <!-- pull down/hide -->
+        <div id="show-btn"></div>
+    </div>
+    <canvas id="canvas"></canvas>
+    <script src="script.js"></script>
+</body>
+</html>
